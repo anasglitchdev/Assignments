@@ -16,9 +16,9 @@
 
 // ============================================
 
-// Name: _______________
+// Name: ANAS BIN SOHAIL
 
-// Date: _______________
+// Date: 15 June 2026
 
 // ============================================
 
@@ -293,8 +293,10 @@ let speed = 95
 
 if(speed < 60){
     console.log("Safe driving")
-}else if(speed <=81){
+}else if(speed <= 81){
     console.log("Slight overspeed, warning")
+}else if(speed <= 121){
+    console.log("Fine: Rs 500")
 }else {
     console.log("Heavy fine: Rs 2000 + license cancelled")
 }
@@ -323,9 +325,17 @@ let units = 150
 
 // Write your code here:
 
+let bill2;
 
+if (units <= 100) {
+    bill2 = units * 5;
+} else if (units <= 300) {
+    bill2 = units * 10;
+} else {
+    bill2 = units * 20;
+}
 
-
+console.log("Total bill: Rs " + bill2);
 
 // ============================================
 
@@ -353,9 +363,13 @@ let password = "abc123"
 
 // Write your code here:
 
-
-
-
+if(username !== "student"){
+    console.log("Username not found")
+}else if(password !== "abc123"){
+    console.log("Wrong password")
+}else{
+    console.log("Login successful!")
+}
 
 // ============================================
 
@@ -383,9 +397,13 @@ let side3 = 8
 
 // Write your code here:
 
-
-
-
+if(side1 === side2 && side2 === side3){
+    console.log("Equilateral triangle")
+}else if(side1 === side2 || side2 === side3 || side1 === side3){
+    console.log("Isosceles triangle")
+}else{
+    console.log("Scalene triangle")
+}
 
 // ============================================
 
@@ -413,9 +431,15 @@ let isMember = false
 
 // Write your code here:
 
-
-
-
+if(items >= 10 && isMember){
+    console.log("20% discount")
+}else if(items >= 10 && !isMember){
+    console.log("10% discount")
+}else if(items < 10 && isMember){
+    console.log("5% discount")
+}else{
+    console.log("No discount")
+}
 
 // ============================================
 
