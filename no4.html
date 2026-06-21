@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plus Minus</title>
+</head>
+<body>
+    <h1>Exercise 1</h1>
+    <h2 id="marks">50</h2>
+    <button id="increase">Add Bonus Marks</button>
+    <button id="deduct">Deduct Marks</button>
+    <hr>
+    <h1>Exercise 2</h1>
+    <h2 id="agern">18</h2>
+    <button id="grow">Birthday</button>
+    <button id="bfr">Go Back One Year</button>
+    <hr>
+    <h1>Exercise 3</h1>
+    <h2 id="bulbStatus">Bulb is OFF</h2>
+    <button id="onBtn">Turn ON</button>
+    <button id="offBtn">Turn OFF</button>
+</body>
+<script>
+
+    let itgo = document.querySelector("#marks")
+    let add = document.querySelector("#increase")
+    let minus = document.querySelector("#deduct")
+
+    let firee = itgo.innerHTML
+
+    let increment1 = () => {
+        firee++
+        itgo.innerHTML = firee
+    }
+    let decrement1 = () => {
+        firee--
+        itgo.innerHTML = firee
+    }
+    increase.addEventListener("click", increment1)
+    deduct.addEventListener("click", decrement1)
+
+    // -------------------------------------------------------------------------------------
+
+    let yourage = document.querySelector("#agern")
+    let saalgirah = document.querySelector("#grow")
+    let peeche = document.querySelector("#bfr")
+
+    let looul = yourage.innerHTML
+
+    let increment2 = () => {
+        looul++
+        yourage.innerHTML = looul
+    }
+    let decrement2 = () => {
+        looul--
+        yourage.innerHTML = looul
+    }
+    grow.addEventListener("click", increment2)
+    bfr.addEventListener("click", decrement2)
+
+    // --------------------------------------------------------------------------------------
+
+    let heading = document.querySelector("#bulbStatus");
+    let onButton = document.querySelector("#onBtn");
+    let offButton = document.querySelector("#offBtn");
+
+    function turnOn() {
+        heading.textContent = "Bulb is ON";
+    }
+
+    function turnOff() {
+        heading.textContent = "Bulb is OFF";
+    }
+
+    onButton.addEventListener("click", turnOn);
+    offButton.addEventListener("click", turnOff);
+</script>
+</html>
