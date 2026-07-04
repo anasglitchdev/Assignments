@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Welcome</h1>
+    <p>To see some calculations right-click anywhere on this page and press "Insert" option!</p>
+    <hr>
+    <h2>Exercise 1 - Multiplication</h2>
+    <input placeholder="Number To Multiply" id="num_1" />
+    <input placeholder="Times To Multiply" id="num_2" />
+    <button id="magically_multiply">See Generated Table</button>
+    <div id="render_div"></div>
+    <hr>
+    <h2>Exercise 2 - Even Number Display</h2>
+    <input placeholder="Even Numbers till" id="endNum" />
+    <button id="even_numbers">Click to see even numbers</button>
+    <div id="even_div"></div>
+    <hr>
+    <h2>Exercise 3 - Countdown</h2>
+    <input placeholder="Countdown From" id="countdownNum" />
+    <button id="countdownBtn">Click to Countdown</button>
+    <div id="countdown_div"></div>
+    <hr>
+    <h2>Exercise 4 - Sum of Numbers</h2>
+    <input placeholder="Add Numbers till" id="add_em" />
+    <button id="answerBtn">Click for Answer</button>
+    <span id="answer_span"></span>
+    <hr>
+    <h2>Exercise 5 - Patterns</h2>
+    <input placeholder="Pattern Till" id="pattern_input" />
+    <button id="pattern_btn">Click</button>
+    <div id="pattern_div"></div>
+</body>
+<script>
+    // Exercise 1 – Multiplication Table: Create two input fields (Table Number and Number of Times)
+    //  and a button. When the button is clicked, display the multiplication table inside the page
+    //  using a for loop.
+
+    let number1 = document.getElementById("num_1")
+    let number2 = document.getElementById("num_2")
+    let tableBtn = document.getElementById("magically_multiply")
+    let table_div = document.getElementById("render_div")
+
+    let renderTable = () => {
+        let num1_value = number1.value
+        let num2_value = number2.value
+        table_div.innerHTML = ""
+
+        for (x = 1; x <= num2_value; x++) {
+            let theResult = num1_value * x
+            table_div.innerHTML += "<p>" + num1_value + " x " + x + " = " + theResult + "</p>"
+        }
+    }
+    tableBtn.addEventListener("click", renderTable)
+    // Exercise 2 – Even Numbers: Create one input field where the user enters a number and a button.
+    //  When clicked, display all even numbers from 1 up to the entered number using a loop.
+
+    let endNumber = document.getElementById("endNum")
+    let evenBtn = document.getElementById("even_numbers")
+    let even_div = document.getElementById("even_div")
+
+    let renderNumbers = () => {
+        let endNum_value = endNumber.value
+        even_div.innerHTML = ""
+
+        for (x = 1; x <= endNum_value; x++) {
+            if (x % 2 === 0) {
+                even_div.innerHTML += "<p>" + x + "</p>"
+            }
+        }
+    }
+    evenBtn.addEventListener("click", renderNumbers)
+    // Exercise 3 – Countdown: Create one input field and a button. When the button is clicked, 
+    // display a countdown from the entered number to 1 inside the page using a for loop.
+
+    let countdownNum = document.getElementById("countdownNum")
+    let countdownBtn = document.getElementById("countdownBtn")
+    let countdown_div = document.getElementById("countdown_div")
+
+    let renderCountdown = () => {
+        let countdownNum_value = countdownNum.value
+        countdown_div.innerHTML = ""
+
+        for (x = countdownNum_value; x >= 1; x--) {
+            countdown_div.innerHTML += "<p>" + x + "</p>"
+        }
+    }
+    countdownBtn.addEventListener("click", renderCountdown)
+    // Exercise 4 – Sum of Numbers: Create one input field and a button. When the button is clicked,
+    // calculate and display the sum of all numbers from 1 to the entered number using a loop. 
+    // Show the final answer on the page.
+
+    let addTimes = document.getElementById("add_em")
+    let answerBtn = document.getElementById("answerBtn")
+    let answer_span = document.getElementById("answer_span")
+
+    let renderSpan = () => {
+        let num = 0
+        for (x = 1; x <= addTimes.value; x++) {
+            num = num + x
+        }
+        answer_span.innerHTML = num
+        addTimes.value = ""
+
+    }
+    answerBtn.addEventListener("click", renderSpan)
+    // Exercise 5 – Number Pattern: Create one input field and a button. When the button is clicked, 
+    // display the following pattern according to the entered number using nested for loops. 
+    // Example: If the input is 5, the output should be: 1, 12, 123, 1234, 12345 (each on a new line).
+
+    let pattern_input = document.querySelector("#pattern_input")
+    let pattern_btn = document.querySelector("#pattern_btn")
+    let pattern_div = document.querySelector("#pattern_div")
+
+    let createPattern = () => {
+        pattern_div.innerHTML = ""
+        let pattern = ""
+        for (let x = 1; x <= pattern_input.value; x++) {
+            pattern += x
+            pattern_div.innerHTML += "<p>" + pattern + "</p>"
+        }
+    }
+    pattern_btn.addEventListener("click", createPattern)
+</script>
+</html>
