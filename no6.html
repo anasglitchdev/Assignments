@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays</title>
+</head>
+
+<body>
+    <h1>Exercise 6 - Arrays</h1>
+    <hr>
+    <h2>Shopping List</h2>
+    <input placeholder="Add Item" id="itemAdd" />
+    <button id="addBtn">Add Item to list</button>
+    <div id="displayItems"></div>
+</body>
+<script>
+    let shoppingList = ["Milk", "Bread", "Eggs", "Rice", "Sugar"]
+    console.log(shoppingList)
+
+    // console looks good. now connecting the id to fetch
+    let addItem = document.getElementById("itemAdd")
+    let addBtn = document.getElementById("addBtn")
+    let finalList = document.getElementById("displayItems")
+
+    let renderList = () => {
+        finalList.innerHTML = ""
+        for (x = 0; x < shoppingList.length; x++) {
+            console.log(shoppingList[x])
+            finalList.innerHTML += "<p>" + shoppingList[x] + "</p>"
+        }
+        finalList.innerHTML += "<p>Total Items: " + shoppingList.length + "</p>"
+
+    }
+    renderList()
+
+    addBtn.addEventListener("click", () => {
+        shoppingList.push(addItem.value)
+        renderList()
+        addItem.value = ""
+    })
+</script>
+</html>
