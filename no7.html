@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Type Challanges</title>
+</head>
+<body>
+    <h1>Array Type Exercises (1 to 10 + bonus challenge)</h1>
+    <p>All working in console</p>
+    <p>To see all array lists click "F12" or right-click this page and go to "Inspect"</p>
+    <br>
+    <h1>REVIEW THE WHOLE CODE TOO</h1>
+    <h2>CHALLENGE TO FIND A MISTAKE</h2>
+    <h2>AND YES NO AI VERIFIED SO GOOD LUCK</h2>
+</body>
+<script>
+// Question 1
+// Create an array of 5 cities. Add 2 new cities at the end using push(). Display the updated array 
+// in the browser.
+    let cities = ["Riyadh", "Muscat", "Jerusalem", "Baghdad", "Tehran"]
+    console.log("Before Cities list ->", cities)
+    cities.push("Islamabad", "Cairo")
+    console.log("After Cities list ->", cities)
+    console.log("------------------------------------------------------------")
+// Question 2
+// Create an array of 6 favorite foods. Remove the last food using pop(). Print the updated array 
+// on the webpage.
+    let favFoods = ["Biryani", "Nihari", "Pulao", "Seekh Kebab","Zarda" ,"Chinese cusine"]
+    console.log("Before Favourite foods list ->", favFoods)
+    favFoods.pop()
+    console.log("After Favourite foods list ->", favFoods)
+    console.log("------------------------------------------------------------")
+// Question 3
+// Create an array of 5 colors. Remove the first color using shift(). Display all remaining colors 
+// using a for loop.
+    let colours = ["Red", "Green", "Blue", "Cyan", "Magenta"]
+    console.log("Colours list before ->", colours)
+    colours.shift()
+    console.log("Colour list after ->", colours)
+    for(x = 0; x < colours.length; x++){
+        console.log("Colours List ->", colours[x])
+    }
+    console.log("------------------------------------------------------------")
+// Question 4
+// Create an array of 5 programming languages. Add "HTML" and "CSS" at the beginning using unshift().
+// Print the updated array.
+    let programmingLangs = ["JavaScript", "Java", "Python", "C++", "Rust"]
+    console.log("Programming Languages  before ->", programmingLangs)
+    programmingLangs.unshift("HTML", "CSS")
+    console.log("Programming Languages  after ->", programmingLangs)
+    console.log("------------------------------------------------------------")
+// Question 5
+// Create an array of 8 fruits. Use slice() to create a new array containing only the 3rd to 6th 
+// fruits. Display both the original array and the copied array.
+    let fruits = ["Apple", "Banana", "Mango", "Apricot", "Plum", "Peach", "Orange", "Lychee"]
+    let fruitsCopy = fruits.slice(3,7)
+    console.log("Fruits List ->", fruits)
+    console.log("Fruits List Copy ->", fruitsCopy)
+    console.log("------------------------------------------------------------")
+// Question 6
+// Create an array of 7 animals. Use splice() to insert "Lion" and "Tiger" after the second element 
+// without deleting any existing element. Display the updated array.
+    let animals = ["Chicken", "Fennec", "Hedgehog", "Sheep", "Buffalo", "Rabbit", "Deer"]
+    console.log("Animals before ->", animals)
+    animals.splice(2,0,"Lion", "Tiger")
+    console.log("Animals after ->", animals)
+    console.log("------------------------------------------------------------")
+// Question 7
+// Create an array of 6 car brands. Use splice() to remove the 3rd and 4th brands. Print the 
+// updated array.
+    let car_brands = ["Toyota", "Suzuki", "Honda", "Hyundai", "Mitsubishi", "Mercedes"]
+    console.log(car_brands)
+    car_brands.splice(1,2)
+    console.log(car_brands)
+    console.log("------------------------------------------------------------")
+// Question 8
+// Create an array of 6 subjects. Replace the 2nd subject with "Computer Science" using splice(). 
+// Display the updated array.
+    let subjects = ["English", "Geography", "History", "Urdu", "Islamic Studies", "Pakistan Studies"]
+    console.log(subjects)
+    subjects.splice(1,1,"Computer Sciences")
+    console.log(subjects)
+    console.log("------------------------------------------------------------")
+// Question 9
+// Create an array of 10 student names.
+// Perform the following operations:
+// Add 2 new students at the end.
+// Remove the first student.
+// Add "Ahmed" at the beginning.
+// Remove the last student.
+// Display the final array using a for loop
+    let students = ["Abid", "Anas", "Ariz", "Furqan", "Faraz", "Jamal", "Hadi", "Kamran", "Raes", "Zohaib"]
+    console.log("Start of session ->", students)
+    students.push("Zafar", "Zarar")
+    console.log("Two students join ->", students)
+    students.shift()
+    console.log("One Student Leaves", students)
+    students.unshift("Ahmed")
+    console.log("One student joins ->", students)
+    students.pop()
+    console.log("One student leaves ->", students)
+    for(x = 1; x < students.length; x++){
+        console.log("Students ->", students[x])
+    }
+    console.log("------------------------------------------------------------")
+// Question 10
+// Create an array of 8 mobile brands.
+// Perform these operations in order:
+// Add "OnePlus" at the end.
+// Remove the first brand.
+// Add "Apple" at the beginning.
+// Copy the last 4 brands into a new array using slice().
+// Insert "Nothing" after the third element using splice().
+// Display both arrays using a for loop.
+    let mobileBrands = ["Huawei", "Samsung", "Xiaomi", "Oppo", "Vivo", "Realme", "Motorola", "Google"]
+    console.log("8 Mobile Brands ->", mobileBrands)
+    mobileBrands.push("OnePlus")
+    console.log("+1 Brand", mobileBrands)
+    mobileBrands.shift()
+    console.log("-1 Brand ->", mobileBrands)
+    mobileBrands.unshift("Apple")
+    console.log("Added 1 Brand ->", mobileBrands)
+    let mobileBrandsCopy = mobileBrands.slice(5,9)
+    console.log("Last four brands", mobileBrandsCopy)
+    mobileBrandsCopy.splice(3, 0, "Nothing")
+    console.log("One last addition ->", mobileBrandsCopy)
+    for (x = 1; x < mobileBrands.length; x++){console.log("Mobile Brands ->", mobileBrands[x])}
+    for (x = 1; x < mobileBrandsCopy.length; x++){console.log("Mobile Brands Copy->", mobileBrandsCopy[x])}
+    console.log("------------------------------------------------------------")
+// Bonus Challenge
+// Create an array of 10 numbers.
+// Perform the following:
+// Add 100 and 200 using push().
+// Remove the first number using shift().
+// Add 0 at the beginning using unshift().
+// Copy the middle 5 numbers into a new array using slice().
+// Replace the 4th number with 999 using splice().
+// Display the final array and the copied array separately using for loops. 
+    let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    console.log("Numbers ->", numbers)
+    numbers.push("100", "200")
+    console.log("Numbers ->", numbers)
+    numbers.shift()
+    console.log("Numbers ->", numbers)
+    numbers.unshift("0")
+    console.log("Numbers ->", numbers)
+    let numbersCopy = numbers.slice(3, 8)
+    console.log("Numbers Copy ->", numbersCopy)
+    numbersCopy.splice(3, 1, "999")
+    console.log("Numbers Copy ->", numbersCopy)
+    for(x = 1; x < numbers.length; x++){console.log("Numbers ->", numbers[x])}
+    for(x = 1; x < numbersCopy.length; x++){console.log("Numbers Copy ->", numbersCopy[x])}
+</script>
+</html>
