@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remaining Time</title>
+</head>
+
+<body>
+    <h1>TIME TILL FUTURE EVENT WEBPAGE</h1>
+    <hr>
+    <input type="date" id="eventInput" />
+    <button id="timeShowBtn">Click to see time</button>
+    <div id="timeLeft_div"></div>
+</body>
+<script>
+    let eventInput = document.getElementById("eventInput")
+    let timeShowBtn = document.getElementById("timeShowBtn")
+    let timeLeft_div = document.getElementById("timeLeft_div")
+
+    let renderTime = () => {
+        timeLeft_div.innerHTML = ""
+        let event = eventInput.value
+        let now = new Date()
+        let futureEvent = new Date(event)
+
+        let milisecsTillNow = now.getTime()
+        let milisecsTillEvent = futureEvent.getTime()
+
+        let milliseconds = milisecsTillEvent - milisecsTillNow
+        if (milliseconds <= 0) {
+            timeLeft_div.innerHTML += "<p> This event has already passed : Failed to generate </p>"
+        } else {
+            let seconds = milliseconds / 1000
+            let minutes = milliseconds / 1000 / 60
+            let hours = milliseconds / 1000 / 60 / 60
+            let days = milliseconds / 1000 / 60 / 60 / 24
+
+            timeLeft_div.innerHTML += "<p>" + Math.floor(days) + " Days : " + Math.floor(hours) + " Hours : " + Math.floor(minutes) + " Minutes : " + Math.floor(seconds) + " Seconds"
+        }
+    }
+    timeShowBtn.addEventListener("click", renderTime)
+</script>
+</html>
