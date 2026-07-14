@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Bio Formatter</title>
+</head>
+
+<body>
+    <h1>Student Bio Formatter</h1>
+    <hr>
+    <input placeholder="Student Full Name" id="fullName" />
+    <input placeholder="City" id="cityName" />
+    <input placeholder="Short Introduction" id="shortIntro" />
+    <button id="formatInfo">Format Information</button>
+    <button id="checkName">Check Name</button>
+    <div id="output_div"></div>
+</body>
+<script>
+    let fullName = document.getElementById("fullName")
+    let cityName = document.getElementById("cityName")
+    let shortIntro = document.getElementById("shortIntro")
+    let formatInfo = document.getElementById("formatInfo")
+    let output_div = document.getElementById("output_div")
+    let checkName = document.getElementById("checkName")
+
+    // When the button is clicked:
+    // Perform all of the following:
+
+    // 1 Remove extra spaces from the student's name using trim().
+    // 2 Display the total number of characters in the name using length.
+    // 3 Display the first name only using slice().
+    // 4 Convert the full name to UPPERCASE.
+    // 5 Convert the city to lowercase.
+    // 6 Replace every occurrence of the word student in the introduction with developer using replaceAll().
+    // 7 Show the first 20 characters of the introduction using substring().
+
+    let renderOutput = () => {
+        output_div.innerHTML = ""
+
+        let name = fullName.value.trim()
+        let city = cityName.value.toLowerCase()
+        let intro = shortIntro.value.replaceAll("student", "developer").replaceAll("Student", "Developer")
+        let spaceIndex = name.indexOf(" ")
+        let firstName = name.slice(0, spaceIndex)
+
+        output_div.innerHTML += "<p>" + "Clean Name: " + name + "</p>"
+        output_div.innerHTML += "<p>" + "Name Length: " + name.length + "</p>"
+        output_div.innerHTML += "<p>" + "First Name: " + firstName + "</p>"
+        output_div.innerHTML += "<p>" + "Uppercase Name: " + name.toUpperCase() + "</p>"
+        output_div.innerHTML += "<p>" + "City: " + city + "</p>"
+        output_div.innerHTML += "<p>" + "Updated Introduction: " + intro + "</p>"
+        output_div.innerHTML += "<p>" + "First 20 Characters: " + intro.substring(0, 20) + "</p>"
+    }
+
+    let bonusChallange = () => {
+        let name = fullName.value.trim()
+        if(name.indexOf("Bilal") !== -1) {
+            output_div.innerHTML += "Bilal is present in the name."
+        } else {
+            output_div.innerHTML += "Bilal is not present in the name."
+        }
+    }
+    formatInfo.addEventListener("click", renderOutput)
+    checkName.addEventListener("click", bonusChallange)
+</script>
+</html>
