@@ -4,18 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Bio Formatter</title>
+    <title>Assignment 10 — Bio Formatter</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div class="site-nav"><a href="index.html">&larr; directory</a><span class="tag">no10.html</span></div>
+    <div class="term">
+        <div class="term-bar">
+            <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+            <span class="term-title">no10.html — strings</span>
+        </div>
+        <div class="term-body">
     <h1>Student Bio Formatter</h1>
     <hr>
     <input placeholder="Student Full Name" id="fullName" />
     <input placeholder="City" id="cityName" />
     <input placeholder="Short Introduction" id="shortIntro" />
+    <br>
     <button id="formatInfo">Format Information</button>
     <button id="checkName">Check Name</button>
     <div id="output_div"></div>
+        </div>
+    </div>
 </body>
 <script>
     let fullName = document.getElementById("fullName")

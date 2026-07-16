@@ -3,16 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Assignment 9 — Event Difference</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Event Countdown and Duration Calender</h1>
+    <div class="site-nav"><a href="index.html">&larr; directory</a><span class="tag">no9.html</span></div>
+    <div class="term">
+        <div class="term-bar">
+            <span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span>
+            <span class="term-title">no9.html — Date() diff</span>
+        </div>
+        <div class="term-body">
+    <h1>Event Countdown and Duration Calendar</h1>
     <hr>
-    <span>Add Today's Date </span><input type="date" id="userCurrentDate"/>
+    <p style="margin-bottom:4px;">Today's date</p>
+    <input type="date" id="userCurrentDate"/>
+    <p style="margin:16px 0 4px;">Date of future event</p>
+    <input type="date" id="userEventDate"/>
     <br>
-    <span>Date Of Future Event </span><input type="date" id="userEventDate"/>
     <button id="timeDifference">Calculate Remaining time</button>
     <div id="time_div"></div>
+        </div>
+    </div>
 </body>
 <script>
     let userCurrentDate = document.getElementById("userCurrentDate")
