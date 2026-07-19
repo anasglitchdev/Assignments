@@ -155,6 +155,7 @@ a { color: var(--accent); }
 /* ---------- inputs & buttons ---------- */
 input[type="text"],
 input[type="date"],
+input[type="url"],
 input:not([type]) {
   background: var(--bg-alt);
   border: 1px solid var(--border);
