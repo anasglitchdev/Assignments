@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Notepad</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-shell">
+        <div class="site-nav">
+            <a href="index.html">← directory</a>
+            <span class="tag">prectice.html</span>
+        </div>
+
+        <div class="hero-card">
+            <div class="hero-top">
+                <span class="pill">JavaScript Practice</span>
+                <span class="pill accent">Console Playground</span>
+            </div>
+            <h1>Practice Notepad</h1>
+            <p>Open the browser console to inspect the JavaScript output from this scratchpad.</p>
+        </div>
+
+        <div class="term">
+            <div class="term-bar">
+                <span class="term-dot r"></span>
+                <span class="term-dot y"></span>
+                <span class="term-dot g"></span>
+                <span class="term-title">prectice.html — console playground</span>
+            </div>
+            <div class="term-body">
+                <h1>Quick Console Demo</h1>
+                <p>Right-click the page, choose Inspect, and open the Console to see the logs.</p>
+                <div class="console-hint">Use <span class="kbd">F12</span> or <span class="kbd">Ctrl + Shift + I</span> to access the console.</div>
+                <pre>console.log("Normal stringy variant");
+let x = 8;
+let y = 2;
+console.log(x + y);
+
+let firstName = 'Sohail';
+let lastName = 'Ahmed';
+let fullName = firstName + " " + lastName;
+console.log(fullName);
+
+let totalEmployees = 50;
+let presentEmployees = 40;
+let onLeave = 5;
+console.log(presentEmployees / totalEmployees * 100);
+console.log((totalEmployees - presentEmployees) / totalEmployees * 100);
+
+let expectedTime = 9;
+let arrivalTime = 8.9;
+if (expectedTime > arrivalTime) {
+  console.log("On time!");
+} else {
+  console.log("Well, better late than never");
+}</pre>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // alert("Message broadcasted :D")
+    console.log("Normal stringy variant")
+    let x = 8
+    let y = 2
+    console.log(x + y)
+    let firstName = 'Sohail'
+    let lastName = 'Ahmed'
+    let fullName = firstName + " " + lastName
+    console.log(fullName)
+    
+    // percentiles
+    let totalEmployees = 50
+    let presentEmployees = 40
+    let onLeave = 5
+    console.log(presentEmployees/totalEmployees*100)
+    console.log((totalEmployees-presentEmployees)/totalEmployees*100)
+
+    let expectedTime = 9
+    let arrivalTime = 8.9
+    if(expectedTime > arrivalTime) {
+        console.log("On time!")
+    }else {
+        console.log("Well, better late than never")
+    }
+    
+</script>
+</html>
