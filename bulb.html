@@ -19,7 +19,7 @@
     <h1>Bulb</h1>
     <img src="https://media.istockphoto.com/id/523616495/photo/light-bulb.jpg?b=1&s=612x612&w=0&k=20&c=AO0z6_eLnoVnJ7VFMG_jqviAkaXiXQMvhTc5kamwwSI="
         alt="Bulb is off" id="bulb" height="400" width="600" />
-    <button id="onOff">ON</button>
+    <button id="onOff">Turn On</button>
         </div>
     </div>
 </body>
@@ -28,22 +28,58 @@
     let on = "https://i.ibb.co/zTWnwRNz/Chat-GPT-Image-Jun-29-2026-10-11-50-PM.png"
     let off = "https://media.istockphoto.com/id/523616495/photo/light-bulb.jpg?b=1&s=612x612&w=0&k=20&c=AO0z6_eLnoVnJ7VFMG_jqviAkaXiXQMvhTc5kamwwSI="
     let isBulbOn = false
-    let bulbImg = document.querySelector("#bulb")
-    let onOffButton = document.querySelector("#onOff")
-   
-    let onOff = () => {
-        if (isBulbOn) {
-            bulbImg.src = off
-            isBulbOn = false
-            onOffButton.innerHTML = "On"
-        } else {
-            bulbImg.src = on
-            isBulbOn = true
-            onOffButton.innerHTML = "Off"
-        }
+    let bulbImg
+    let onOffButton
+    
+    // Preload images to cache them
+    function preloadImages() {
+        const img1 = new Image()
+        img1.src = on
+        const img2 = new Image()
+        img2.src = off
+        console.log("Preloading images...")
     }
-   
-   onOffButton.addEventListener('click', onOff)
+    
+    // Wait for DOM to be ready and get elements
+    function initBulb() {
+        bulbImg = document.querySelector("#bulb")
+        onOffButton = document.querySelector("#onOff")
+        
+        console.log("Initializing bulb...", {bulbImg, onOffButton})
+        
+        // Verify elements exist
+        if (!bulbImg || !onOffButton) {
+            console.error("Error: Bulb or button element not found")
+            return
+        }
+        
+        console.log("Elements found successfully")
+       
+        onOffButton.addEventListener('click', function() {
+            console.log("Button clicked! Current state:", isBulbOn)
+            if (isBulbOn) {
+                bulbImg.src = off
+                isBulbOn = false
+                onOffButton.textContent = "Turn On"
+                console.log("Bulb turned OFF")
+            } else {
+                bulbImg.src = on
+                isBulbOn = true
+                onOffButton.textContent = "Turn Off"
+                console.log("Bulb turned ON")
+            }
+        })
+    }
+    
+    // Start preloading immediately
+    preloadImages()
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initBulb)
+    } else {
+        initBulb()
+    }
 </script>
 
 </html>
