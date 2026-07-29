@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 12 — Number Methods</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0e14;
+            --bg-alt: #0d131c;
+            --surface: #121924;
+            --surface-2: #1a2333;
+            --border: #232f42;
+            --border-soft: #1a2333;
+            --text: #dfe7f0;
+            --text-dim: #7c8aa3;
+            --text-faint: #4d5b74;
+            --accent: #5eead4;
+            --accent-dim: #2c7a6e;
+            --accent-2: #f2b84b;
+            --danger: #ff6b7a;
+            --ok: #7ee787;
+            --radius: 8px;
+            --dot-red: #ff5f57;
+            --dot-yellow: #febc2e;
+            --dot-green: #28c840;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body {
+            background: var(--bg);
+            background-image:
+                radial-gradient(circle at 15% 0%, rgba(94,234,212,0.06), transparent 40%),
+                radial-gradient(circle at 85% 100%, rgba(242,184,75,0.05), transparent 40%);
+            background-attachment: fixed;
+            color: var(--text);
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body { padding: 32px 16px 80px; }
+
+        /* nav */
+        .site-nav {
+            max-width: 760px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-faint);
+        }
+        .site-nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--border);
+            transition: color .15s, border-color .15s;
+        }
+        .site-nav a:hover { color: var(--accent); border-color: var(--accent); }
+        .site-nav .tag { color: var(--text-faint); }
+
+        /* terminal window */
+        .term {
+            max-width: 760px;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.02);
+            overflow: hidden;
+        }
+
+        .term-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 14px;
+            background: var(--surface-2);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .term-dot {
+            width: 11px; height: 11px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .term-dot.r { background: var(--dot-red); }
+        .term-dot.y { background: var(--dot-yellow); }
+        .term-dot.g { background: var(--dot-green); }
+
+        .term-title {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-dim);
+            letter-spacing: .02em;
+        }
+
+        .term-body { padding: 28px 32px 36px; }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 4px;
+            color: var(--text);
+        }
+
+        p { color: var(--text-dim); font-size: 13.5px; margin: 8px 0 20px; }
+
+        hr {
+            border: none;
+            border-top: 1px dashed var(--border);
+            margin: 24px 0;
+        }
+
+        /* game layout */
+        .game-row {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        /* team cards */
+        .team-card {
+            flex: 1;
+            min-width: 200px;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            transition: border-color .2s, box-shadow .2s, transform .2s;
+        }
+
+        .team-card.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(94,234,212,0.12);
+            transform: translateY(-3px);
+        }
+
+        .team-card.team-b.active {
+            border-color: var(--accent-2);
+            box-shadow: 0 0 20px rgba(242,184,75,0.12);
+        }
+
+        .team-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            margin: 0 0 8px;
+        }
+
+        .team-score {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin: 0 0 4px;
+            color: var(--accent);
+        }
+
+        .team-b .team-score { color: var(--accent-2); }
+
+        .score-target {
+            font-size: 11px;
+            color: var(--text-faint);
+            margin: 0 0 16px;
+        }
+
+        /* dice */
+        .dice {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 8px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            padding: 8px;
+        }
+
+        .dice.rolling { animation: shake 0.15s infinite; }
+
+        @keyframes shake {
+            0% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+            100% { transform: rotate(-5deg); }
+        }
+
+        .pip {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            align-self: center;
+            justify-self: center;
+            opacity: 0;
+            transition: opacity .1s;
+        }
+
+        .team-b .pip { background: var(--accent-2); }
+
+        .dice-num {
+            display: none;
+            position: absolute;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .team-b .dice-num { color: var(--accent-2); }
+        .dice { position: relative; }
+
+        /* last roll display */
+        .last-roll {
+            font-size: 11px;
+            color: var(--text-faint);
+            margin: 0 0 14px;
+            min-height: 16px;
+        }
+
+        /* roll button */
+        button.roll-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--accent);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 9px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all .15s;
+            width: 100%;
+        }
+
+        button.roll-btn::before { content: "▸ "; color: var(--text-faint); }
+
+        button.roll-btn:hover:not(:disabled) {
+            border-color: var(--accent);
+            background: rgba(94,234,212,0.08);
+        }
+
+        .team-b button.roll-btn { color: var(--accent-2); }
+        .team-b button.roll-btn:hover:not(:disabled) {
+            border-color: var(--accent-2);
+            background: rgba(242,184,75,0.08);
+        }
+
+        button.roll-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        /* turns & info box */
+        .info-box {
+            flex: 0 0 auto;
+            text-align: center;
+            padding: 12px 16px;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            min-width: 120px;
+        }
+
+        .info-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            margin: 0 0 4px;
+        }
+
+        .info-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .info-sub {
+            font-size: 11px;
+            color: var(--text-faint);
+            margin: 4px 0 0;
+        }
+
+        /* banner */
+        .banner {
+            display: none;
+            margin-top: 24px;
+            padding: 16px 20px;
+            border-radius: var(--radius);
+            background: var(--bg-alt);
+            border: 1px solid var(--accent);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        .banner.show { display: block; }
+
+        /* reset button */
+        button.reset-btn {
+            display: none;
+            margin: 14px auto 0;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            font-family: inherit;
+            font-size: 13px;
+            padding: 9px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all .15s;
+        }
+
+        button.reset-btn::before { content: "↺ "; }
+        button.reset-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* progress bar */
+        .progress-wrap {
+            margin: 10px 0 0;
+            background: var(--border);
+            border-radius: 999px;
+            height: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 999px;
+            background: var(--accent);
+            width: 0%;
+            transition: width .3s ease;
+        }
+
+        .team-b .progress-bar { background: var(--accent-2); }
+
+        @media (max-width: 520px) {
+            .term-body { padding: 20px 16px 28px; }
+            .game-row { flex-direction: column; }
+            .info-box { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="site-nav">
+        <a href="index.html">&larr; directory</a>
+        <span class="tag">num13.html</span>
+    </div>
+
+    <div class="term">
+        <div class="term-bar">
+            <span class="term-dot r"></span>
+            <span class="term-dot y"></span>
+            <span class="term-dot g"></span>
+            <span class="term-title">num13.html — number methods</span>
+        </div>
+        <div class="term-body">
+            <h1>Dice Showdown</h1>
+            <p>First team to reach 50 points wins. Max 12 turns each.</p>
+            <hr>
+
+            <div class="game-row">
+
+                <!-- Team A -->
+                <div class="team-card team-a active" id="cardA">
+                    <p class="team-label">Team A</p>
+                    <div class="team-score"><span id="total_number_1">0</span></div>
+                    <p class="score-target">/ 50 points</p>
+                    <div class="progress-wrap"><div class="progress-bar" id="progressA"></div></div>
+                    <br>
+                    <div class="dice" id="dice_1">
+                        <div class="pip"></div><div class="pip"></div><div class="pip"></div>
+                        <div class="pip"></div><div class="pip"></div><div class="pip"></div>
+                        <div class="pip"></div><div class="pip"></div><div class="pip"></div>
+                        <div class="dice-num"></div>
+                    </div>
+                    <p class="last-roll" id="last_roll_1">— waiting —</p>
+                    <p class="info-sub" id="avg_1">avg: —</p>
+                    <button class="roll-btn" id="roll_dice_1">Roll Dice</button>
+                </div>
+
+                <!-- Info box -->
+                <div class="info-box">
+                    <p class="info-label">Turns</p>
+                    <p class="info-value"><span id="teamA_turns">0</span> : <span id="teamB_turns">0</span></p>
+                    <p class="info-sub">max 12 each</p>
+                </div>
+
+                <!-- Team B -->
+                <div class="team-card team-b" id="cardB">
+                    <p class="team-label">Team B</p>
+                    <div class="team-score"><span id="total_number_2">0</span></div>
+                    <p class="score-target">/ 50 points</p>
+                    <div class="progress-wrap"><div class="progress-bar" id="progressB"></div></div>
+                    <br>
+                    <div class="dice" id="dice_2">
+                        <div class="pip"></div><div class="pip"></div><div class="pip"></div>
+                        <div class="pip"></div><div class="pip"></div><div class="pip"></div>
+                        <div class="pip"></div><div class="pip"></div><div class="pip"></div>
+                        <div class="dice-num"></div>
+                    </div>
+                    <p class="last-roll" id="last_roll_2">— waiting —</p>
+                    <p class="info-sub" id="avg_2">avg: —</p>
+                    <button class="roll-btn" id="roll_dice_2">Roll Dice</button>
+                </div>
+
+            </div>
+
+            <div class="banner" id="banner"></div>
+            <button class="reset-btn" id="reset_btn">Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        let total_number_1 = document.getElementById("total_number_1")
+        let total_number_2 = document.getElementById("total_number_2")
+        let dice_1 = document.getElementById("dice_1")
+        let dice_2 = document.getElementById("dice_2")
+        let roll_dice_1 = document.getElementById("roll_dice_1")
+        let roll_dice_2 = document.getElementById("roll_dice_2")
+        let teamA_turns = document.getElementById("teamA_turns")
+        let teamB_turns = document.getElementById("teamB_turns")
+        let cardA = document.getElementById("cardA")
+        let cardB = document.getElementById("cardB")
+        let banner = document.getElementById("banner")
+        let reset_btn = document.getElementById("reset_btn")
+        let last_roll_1 = document.getElementById("last_roll_1")
+        let last_roll_2 = document.getElementById("last_roll_2")
+        let progressA = document.getElementById("progressA")
+        let progressB = document.getElementById("progressB")
+        let avg_1 = document.getElementById("avg_1")
+        let avg_2 = document.getElementById("avg_2")
+
+        let turnOf = "A"
+        const MAX_TURNS = 12
+        const WIN_SCORE = 50
+
+        const pipMap = {
+            1: [4],
+            2: [0, 8],
+            3: [0, 4, 8],
+            4: [0, 2, 6, 8],
+            5: [0, 2, 4, 6, 8],
+            6: [0, 2, 3, 5, 6, 8]
+        }
+
+        roll_dice_2.disabled = true
+
+        let generateNumber = () => {
+            return Math.ceil(Math.random() * 12)
+        }
+
+        let showFace = (diceEl, number) => {
+            let pips = diceEl.querySelectorAll(".pip")
+            let numDisplay = diceEl.querySelector(".dice-num")
+            pips.forEach(p => p.style.opacity = 0)
+            if (number <= 6) {
+                if (numDisplay) numDisplay.style.display = "none"
+                pipMap[number].forEach(i => pips[i].style.opacity = 1)
+            } else {
+                pips.forEach(p => p.style.opacity = 0)
+                if (numDisplay) {
+                    numDisplay.style.display = "flex"
+                    numDisplay.innerHTML = number
+                }
+            }
+        }
+
+        let animateRoll = (diceEl, finalNumber, onDone) => {
+            diceEl.classList.add("rolling")
+            let ticks = 0
+            let spin = setInterval(() => {
+                showFace(diceEl, generateNumber())
+                ticks++
+                if (ticks > 8) {
+                    clearInterval(spin)
+                    diceEl.classList.remove("rolling")
+                    showFace(diceEl, finalNumber)
+                    onDone()
+                }
+            }, 60)
+        }
+
+        let updateProgress = () => {
+            let scoreA = +total_number_1.innerHTML
+            let scoreB = +total_number_2.innerHTML
+            progressA.style.width = Math.min((scoreA / WIN_SCORE) * 100, 100) + "%"
+            progressB.style.width = Math.min((scoreB / WIN_SCORE) * 100, 100) + "%"
+        }
+
+        let endGame = () => {
+            let scoreA = +total_number_1.innerHTML
+            let scoreB = +total_number_2.innerHTML
+            roll_dice_1.disabled = true
+            roll_dice_2.disabled = true
+            cardA.classList.remove("active")
+            cardB.classList.remove("active")
+
+            if (scoreA === scoreB) {
+                banner.innerHTML = `// it's a tie — both teams scored ${scoreA}`
+            } else {
+                let winner = scoreA > scoreB ? "Team A" : "Team B"
+                banner.innerHTML = `// 🏆 ${winner} wins with ${Math.max(scoreA, scoreB)} points!`
+            }
+            banner.classList.add("show")
+            reset_btn.style.display = "block"
+        }
+
+        let checkWinner = () => {
+            let scoreA = +total_number_1.innerHTML
+            let scoreB = +total_number_2.innerHTML
+            let turnsA = +teamA_turns.innerHTML
+            let turnsB = +teamB_turns.innerHTML
+
+            // end immediately if either team hits 50
+            if (scoreA >= WIN_SCORE || scoreB >= WIN_SCORE) { endGame(); return true }
+
+            // end if both teams used all turns
+            if (turnsA >= MAX_TURNS && turnsB >= MAX_TURNS) { endGame(); return true }
+
+            return false
+        }
+
+        let rollDice = () => {
+            if (turnOf === "A") {
+                roll_dice_1.disabled = true
+                let diceResult = generateNumber()
+                animateRoll(dice_1, diceResult, () => {
+                    let bonus = diceResult === 6 ? 3 : 0
+                    let totalGain = diceResult + bonus
+                    total_number_1.innerHTML = +total_number_1.innerHTML + totalGain
+                    teamA_turns.innerHTML = +teamA_turns.innerHTML + 1
+
+                    // update average
+                    let turnsA = +teamA_turns.innerHTML
+                    avg_1.innerHTML = "avg: " + (+total_number_1.innerHTML / turnsA).toFixed(1)
+
+                    // last roll display — announce bonus if rolled 6
+                    if (bonus > 0) {
+                        last_roll_1.innerHTML = "rolled → 6 🎉 +3 bonus = 9!"
+                    } else {
+                        last_roll_1.innerHTML = "rolled → " + diceResult
+                    }
+
+                    updateProgress()
+
+                    if (checkWinner()) return
+                    turnOf = "B"
+                    cardA.classList.remove("active")
+                    cardB.classList.add("active")
+                    roll_dice_2.disabled = false
+                })
+            } else {
+                roll_dice_2.disabled = true
+                let diceResult = generateNumber()
+                animateRoll(dice_2, diceResult, () => {
+                    let bonus = diceResult === 6 ? 3 : 0
+                    let totalGain = diceResult + bonus
+                    total_number_2.innerHTML = +total_number_2.innerHTML + totalGain
+                    teamB_turns.innerHTML = +teamB_turns.innerHTML + 1
+
+                    // update average
+                    let turnsB = +teamB_turns.innerHTML
+                    avg_2.innerHTML = "avg: " + (+total_number_2.innerHTML / turnsB).toFixed(1)
+
+                    // last roll display — announce bonus if rolled 6
+                    if (bonus > 0) {
+                        last_roll_2.innerHTML = "rolled → 6 🎉 +3 bonus = 9!"
+                    } else {
+                        last_roll_2.innerHTML = "rolled → " + diceResult
+                    }
+
+                    updateProgress()
+
+                    if (checkWinner()) return
+                    turnOf = "A"
+                    cardB.classList.remove("active")
+                    cardA.classList.add("active")
+                    roll_dice_1.disabled = false
+                })
+            }
+        }
+
+        let resetGame = () => {
+            total_number_1.innerHTML = 0
+            total_number_2.innerHTML = 0
+            teamA_turns.innerHTML = 0
+            teamB_turns.innerHTML = 0
+            last_roll_1.innerHTML = "— waiting —"
+            last_roll_2.innerHTML = "— waiting —"
+            avg_1.innerHTML = "avg: —"
+            avg_2.innerHTML = "avg: —"
+            progressA.style.width = "0%"
+            progressB.style.width = "0%"
+            dice_1.querySelectorAll(".pip").forEach(p => p.style.opacity = 0)
+            dice_2.querySelectorAll(".pip").forEach(p => p.style.opacity = 0)
+            turnOf = "A"
+            roll_dice_1.disabled = false
+            roll_dice_2.disabled = true
+            cardA.classList.add("active")
+            cardB.classList.remove("active")
+            banner.classList.remove("show")
+            reset_btn.style.display = "none"
+        }
+
+        roll_dice_1.addEventListener("click", rollDice)
+        roll_dice_2.addEventListener("click", rollDice)
+        reset_btn.addEventListener("click", resetGame)
+    </script>
+</body>
+</html>
